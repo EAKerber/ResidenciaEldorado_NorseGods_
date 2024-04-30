@@ -15,7 +15,7 @@ public class Shoot : MonoBehaviour
     public Animator animator;
 
     public float lastShotTime;
-    public float timeBetweenShots = 1.0f;
+    public float timeBetweenShots;
     public bool canShoot = false;
 
     public Vector3 worldPosition;
@@ -25,8 +25,11 @@ public class Shoot : MonoBehaviour
 
     void Start()
     {
-        Character = GameObject.Find("Player");
         ArrowSpeed = 50.0f;
+        timeBetweenShots = 2f;
+        lastShotTime = -timeBetweenShots;
+
+        Character = GameObject.Find("Player");
         animator = Character.GetComponentInChildren<Animator>();
     }
 
@@ -47,24 +50,28 @@ public class Shoot : MonoBehaviour
         {
             canShoot = true;
             worldPosition = distance.point;
-            worldPosition.y = worldPosition.y + 0.5f;
+            Vector3 charTarget = worldPosition;
+            Vector3 charRotation = Character.transform.eulerAngles;
             direction = (worldPosition - transform.position).normalized;
-            worldPosition.y = worldPosition.y - 0.5f;
 
-            if (Time.time - lastShotTime <= timeBetweenShots)
-            {
+            if ((Time.time - lastShotTime) <= timeBetweenShots)
+            {                
                 //Rotaciona o personagem
 
-                Vector3 charTarget = worldPosition;
+                Character.transform.LookAt(charTarget);
 
                 //Corrige a posição que o personagem olha ao atirar perto dos pés
+                
+                float targetRotation = 345.0f;
 
-                if (Math.Abs(charTarget.x) < 2)
-                {
-                    charTarget.x = 1 / charTarget.x / 2;
+                if(Character.transform.eulerAngles.x < targetRotation)
+                {  
+                    charRotation.x = targetRotation;
+                    Character.transform.eulerAngles = charRotation;
                 }
+                   
 
-                Character.transform.LookAt(charTarget);
+
             }
 
         }
@@ -80,7 +87,6 @@ public class Shoot : MonoBehaviour
 
     public GameObject ShootArrow(Vector3 direction, Vector3 targetPosition)
     {
-
         //Cria a flecha e inicia animação
 
         GameObject arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
