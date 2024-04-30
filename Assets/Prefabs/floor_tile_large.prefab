@@ -64,7 +64,27 @@ PrefabInstance:
       value: floor_tile_large
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9851afc844ddd453b92338535d0fbd6c, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 9851afc844ddd453b92338535d0fbd6c, type: 3}
+--- !u!1 &8057462438039270679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9851afc844ddd453b92338535d0fbd6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7138401896861993030}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1615124829184811726
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8057462438039270679}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2634147639830484596, guid: 9851afc844ddd453b92338535d0fbd6c, type: 3}
