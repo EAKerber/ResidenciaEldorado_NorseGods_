@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9851afc844ddd453b92338535d0fbd6c,
@@ -63,6 +64,9 @@ PrefabInstance:
       value: floor_tile_large
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9851afc844ddd453b92338535d0fbd6c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9851afc844ddd453b92338535d0fbd6c, type: 3}
 --- !u!1 &8057462438039270679 stripped
 GameObject:
