@@ -33,6 +33,7 @@ public class ArrowDestroy : MonoBehaviour
         if(collision.gameObject.layer == EnemyLayer)
         {
             Destroy(collision.gameObject);
+            scoreManager.instance.setEnemyCount();
         }
     }
 }

@@ -5,18 +5,18 @@ using UnityEngine;
 public class Inimigo : MonoBehaviour
 {
 
-    public GameObject l_Inimigo; // Referência ao prefab do inimigo
-    public Transform spawnPoint;   // Referência ao ponto de spawn
+    public GameObject l_Inimigo; // Referï¿½ncia ao prefab do inimigo
+    public Transform spawnPoint;   // Referï¿½ncia ao ponto de spawn
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0f, 5f); // Spawna um inimigo a cada 2 segundos (ajuste conforme necessário)
+        InvokeRepeating("SpawnEnemy", 0f, 5f); // Spawna um inimigo a cada 2 segundos (ajuste conforme necessï¿½rio)
     }
 
 
     void SpawnEnemy()
     {
-        // Instancia um inimigo no ponto de spawn com a posição e rotação padrão
+        // Instancia um inimigo no ponto de spawn com a posiï¿½ï¿½o e rotaï¿½ï¿½o padrï¿½o
         Instantiate(l_Inimigo, transform.position, Quaternion.identity);
     }
 
@@ -24,6 +24,8 @@ public class Inimigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(scoreManager.instance.checkEnemyCount()){
+            CancelInvoke();
+        }
     }
 }
