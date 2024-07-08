@@ -1155,7 +1155,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 52.521, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -6089,7 +6089,7 @@ PrefabInstance:
     - target: {fileID: 5989459229976473415, guid: f6b9c25c182894e25af5a73b577a0786,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5989459229976473415, guid: f6b9c25c182894e25af5a73b577a0786,
         type: 3}
