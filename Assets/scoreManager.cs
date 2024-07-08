@@ -9,7 +9,11 @@ public class scoreManager : MonoBehaviour
     
     public Text enemyCountText;
 
-    int enemyCount = 20;
+    int roundMaxEnemyCount = 20;
+    int enemyCount = 0;
+    int currentEnemyCount = 0;
+
+    bool bossSpawned = false;
 
     private void Awake() {
         instance = this;
@@ -18,6 +22,7 @@ public class scoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyCount = roundMaxEnemyCount;
         enemyCountText.text = "Inimigos restantes: " + enemyCount.ToString();
     }
 
@@ -30,8 +35,20 @@ public class scoreManager : MonoBehaviour
         }
     }
 
+    public void setCurrentEnemyCount(){
+        currentEnemyCount++;
+    }
+
+    public void setBossSpawned(){
+        bossSpawned = true;
+    }
+
+    public bool wasBossSpawned(){
+        return bossSpawned;
+    }
+
     public bool checkEnemyCount(){
-        if (enemyCount > 1){
+        if (enemyCount > 1 && currentEnemyCount < roundMaxEnemyCount){
             return false;
         }
 
