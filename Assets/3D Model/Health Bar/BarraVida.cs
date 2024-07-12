@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class BarraVida : MonoBehaviour
 {
+    [SerializeField] Vida vida;
     [SerializeField] private Image barraVidaImage;
     void Start()
     {
@@ -19,8 +20,8 @@ public class BarraVida : MonoBehaviour
     }
 
 
-    public void AlterarBarraVida(int vidaAtual, int vidaMaxima)
+    public void AlterarBarraVida()
     {
-        barraVidaImage.fillAmount = (float)vidaAtual / vidaMaxima;
+        barraVidaImage.fillAmount = (float)vida.VidaAtual / vida.VidaTotal;
     }
 }

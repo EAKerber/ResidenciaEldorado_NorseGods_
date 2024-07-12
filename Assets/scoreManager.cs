@@ -9,6 +9,7 @@ public class scoreManager : MonoBehaviour
     
     public Text enemyCountText;
 
+    [SerializeField]
     int roundMaxEnemyCount = 20;
     int enemyCount = 0;
     int currentEnemyCount = 0;

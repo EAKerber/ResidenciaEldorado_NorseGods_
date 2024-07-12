@@ -29,11 +29,11 @@ public class ArrowDestroy : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        Destroy(arrow); 
         if(collision.gameObject.layer == EnemyLayer)
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Vida>().dano(1);
             scoreManager.instance.setEnemyCount();
         }
+        Destroy(arrow);
     }
 }
