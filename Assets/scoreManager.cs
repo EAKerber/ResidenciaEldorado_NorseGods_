@@ -9,8 +9,7 @@ public class scoreManager : MonoBehaviour
     
     public Text enemyCountText;
 
-    [SerializeField]
-    int roundMaxEnemyCount = 20;
+    [SerializeField] int roundMaxEnemyCount = 20;
     int enemyCount = 0;
     int currentEnemyCount = 0;
 
@@ -49,7 +48,15 @@ public class scoreManager : MonoBehaviour
     }
 
     public bool checkEnemyCount(){
-        if (enemyCount > 1 && currentEnemyCount < roundMaxEnemyCount){
+        if (enemyCount > 1){
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool checkEnemyMaxCount(){
+        if (currentEnemyCount < roundMaxEnemyCount){
             return false;
         }
 

@@ -21,7 +21,7 @@ public class Vida : MonoBehaviour
     {
         get
         {
-            return vidaAtual;
+            return vidaTotal;
         }
     }
 
@@ -53,7 +53,6 @@ public class Vida : MonoBehaviour
         if (vidaAtual <= 0)
         {
             evento_fim_vida?.Invoke();
-            Destroy(gameObject);
         }
     }
 }

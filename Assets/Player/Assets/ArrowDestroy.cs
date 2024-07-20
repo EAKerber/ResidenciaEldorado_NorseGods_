@@ -31,8 +31,7 @@ public class ArrowDestroy : MonoBehaviour
     {
         if(collision.gameObject.layer == EnemyLayer)
         {
-            collision.gameObject.GetComponent<Vida>().dano(1);
-            scoreManager.instance.setEnemyCount();
+            collision.gameObject.GetComponent<Vida>().dano(5);
         }
         Destroy(arrow);
     }

@@ -21,6 +21,9 @@ public class Shoot : MonoBehaviour
     public Vector3 worldPosition;
     public Vector3 direction;
 
+    private Rigidbody rb;
+    public float rotationSpeed = 5f; // Velocidade de rotaÃ§Ã£o
+
     // Start is called before the first frame update
 
     void Start()
@@ -31,20 +34,21 @@ public class Shoot : MonoBehaviour
 
         Character = GameObject.Find("Player");
         animator = Character.GetComponentInChildren<Animator>();
+        rb = Character.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
 
     void Update()
     {
-        //Converte uma posição do mouse numa posição no terreno
+        //Converte uma posiï¿½ï¿½o do mouse numa posiï¿½ï¿½o no terreno
 
         Vector3 mousePosition = Input.mousePosition;
         Ray target = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit distance;
         GameObject arrow;
 
-        //Checa se há uma posição valida na posição do mouse
+        //Checa se hï¿½ uma posiï¿½ï¿½o valida na posiï¿½ï¿½o do mouse
 
         if (Physics.Raycast(target, out distance))
         {
@@ -58,17 +62,27 @@ public class Shoot : MonoBehaviour
             {                
                 //Rotaciona o personagem
 
-                Character.transform.LookAt(charTarget);
+                Vector3 direction = (distance.point  - transform.position).normalized;
+                direction.y = 0; // MantÃ©m a rotaÃ§Ã£o apenas no plano horizontal
 
-                //Corrige a posição que o personagem olha ao atirar perto dos pés
+                // Calcula a rotaÃ§Ã£o desejada
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+                // Suaviza a rotaÃ§Ã£o
+                //Quaternion smoothedRotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+
+                // Aplica a rotaÃ§Ã£o usando o Rigidbody
+                rb.MoveRotation(lookRotation);
+
+                //Corrige a posiï¿½ï¿½o que o personagem olha ao atirar perto dos pï¿½s
                 
-                float targetRotation = 345.0f;
+                /*float targetRotation = 345.0f;
 
                 if(Character.transform.eulerAngles.x < targetRotation)
                 {  
                     charRotation.x = targetRotation;
                     Character.transform.eulerAngles = charRotation;
-                }
+                }*/
                    
 
 
@@ -87,18 +101,18 @@ public class Shoot : MonoBehaviour
 
     public GameObject ShootArrow(Vector3 direction, Vector3 targetPosition)
     {
-        //Cria a flecha e inicia animação
+        //Cria a flecha e inicia animaï¿½ï¿½o
 
         GameObject arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
         animator.SetTrigger("t_shoot");
 
-        //Ajusta a direção da flecha
+        //Ajusta a direï¿½ï¿½o da flecha
 
         arrow.transform.LookAt(targetPosition);
         arrow.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
 
 
-        //Dá impulso a flecha
+        //Dï¿½ impulso a flecha
 
         Rigidbody arrowRB = arrow.GetComponent<Rigidbody>();
         arrowRB.AddForce(direction * ArrowSpeed, ForceMode.VelocityChange);
