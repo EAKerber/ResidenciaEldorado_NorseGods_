@@ -9,9 +9,10 @@ public class scoreManager : MonoBehaviour
     
     public Text enemyCountText;
 
-    [SerializeField] int roundMaxEnemyCount = 20;
-    int enemyCount = 0;
-    int currentEnemyCount = 0;
+    [SerializeField] private int roundMaxEnemyCount = 20;
+    private int enemyCount = 0;
+    private int enemiesSpawned = 0;
+    private int enemiesKilled = 0;
 
     bool bossSpawned = false;
 
@@ -26,7 +27,7 @@ public class scoreManager : MonoBehaviour
         enemyCountText.text = "Inimigos restantes: " + enemyCount.ToString();
     }
 
-    public void setEnemyCount(){
+    public void setEnemyCountText(){
         if(enemyCount > 1){
             enemyCount--;
             enemyCountText.text = "Inimigos restantes: " + enemyCount.ToString();
@@ -35,8 +36,12 @@ public class scoreManager : MonoBehaviour
         }
     }
 
-    public void setCurrentEnemyCount(){
-        currentEnemyCount++;
+    public void setEnemiesSpawnedCount(){
+        enemiesSpawned++;
+    }
+
+    public void setEnemiesKilledCount(){
+        enemiesKilled++;
     }
 
     public void setBossSpawned(){
@@ -47,20 +52,22 @@ public class scoreManager : MonoBehaviour
         return bossSpawned;
     }
 
-    public bool checkEnemyCount(){
-        if (enemyCount > 1){
-            return false;
+    public bool isAllEnemiesKilled(){
+        bool isEnemiesKilledEqualMax = enemiesKilled == roundMaxEnemyCount;
+        if (isEnemiesKilledEqualMax){
+            return true;
         }
 
-        return true;
+        return false;
     }
 
-    public bool checkEnemyMaxCount(){
-        if (currentEnemyCount < roundMaxEnemyCount){
-            return false;
+    public bool isMaxEnemiesSpawned(){
+        bool isEnemiesSpawnedEqualMax = enemiesSpawned == roundMaxEnemyCount;
+        if (isEnemiesSpawnedEqualMax){
+            return true;
         }
 
-        return true;
+        return false;
     }
 
 }

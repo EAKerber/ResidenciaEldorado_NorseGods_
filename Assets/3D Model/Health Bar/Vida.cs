@@ -47,6 +47,7 @@ public class Vida : MonoBehaviour
     }
 
     public void dano(int i) { 
+        UnityEngine.Debug.Log("hey");
         vidaAtual -= i;
         evento_dano?.Invoke();
 

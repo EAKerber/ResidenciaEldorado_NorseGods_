@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Shoot : MonoBehaviour
 {
-    // Instanciar variaveis iniciais
-
     public GameObject ArrowPrefab;
     public float ArrowSpeed;
 
@@ -15,6 +12,7 @@ public class Shoot : MonoBehaviour
     public Animator animator;
 
     public float lastShotTime;
+    public float aimInterval;
     public float timeBetweenShots;
     public bool canShoot = false;
 
@@ -22,14 +20,17 @@ public class Shoot : MonoBehaviour
     public Vector3 direction;
 
     private Rigidbody rb;
-    public float rotationSpeed = 5f; // Velocidade de rotação
+    public float rotationSpeed;
 
-    // Start is called before the first frame update
+    private bool isAiming = false;
+    private float aimEndTime;
 
     void Start()
     {
-        ArrowSpeed = 50.0f;
-        timeBetweenShots = 2f;
+        ArrowSpeed = 75.0f;
+        timeBetweenShots = 0.3f;
+        aimInterval = 2.5f;
+        rotationSpeed = 150f;
         lastShotTime = -timeBetweenShots;
 
         Character = GameObject.Find("Player");
@@ -37,86 +38,60 @@ public class Shoot : MonoBehaviour
         rb = Character.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-
     void Update()
     {
-        //Converte uma posi��o do mouse numa posi��o no terreno
-
         Vector3 mousePosition = Input.mousePosition;
         Ray target = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit distance;
         GameObject arrow;
 
-        //Checa se h� uma posi��o valida na posi��o do mouse
-
         if (Physics.Raycast(target, out distance))
         {
             canShoot = true;
             worldPosition = distance.point;
-            Vector3 charTarget = worldPosition;
-            Vector3 charRotation = Character.transform.eulerAngles;
             direction = (worldPosition - transform.position).normalized;
-
-            if ((Time.time - lastShotTime) <= timeBetweenShots)
-            {                
-                //Rotaciona o personagem
-
-                Vector3 direction = (distance.point  - transform.position).normalized;
-                direction.y = 0; // Mantém a rotação apenas no plano horizontal
-
-                // Calcula a rotação desejada
-                Quaternion lookRotation = Quaternion.LookRotation(direction);
-
-                // Suaviza a rotação
-                //Quaternion smoothedRotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-
-                // Aplica a rotação usando o Rigidbody
-                rb.MoveRotation(lookRotation);
-
-                //Corrige a posi��o que o personagem olha ao atirar perto dos p�s
-                
-                /*float targetRotation = 345.0f;
-
-                if(Character.transform.eulerAngles.x < targetRotation)
-                {  
-                    charRotation.x = targetRotation;
-                    Character.transform.eulerAngles = charRotation;
-                }*/
-                   
-
-
-            }
-
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (isAiming)
+        {
+            AimAtCursor();
+            if (Time.time >= aimEndTime)
+            {
+                isAiming = false;
+            }
+        }
+
+        if (Input.GetButtonDown("Fire1") && Time.time >= lastShotTime + timeBetweenShots)
         {
             if (canShoot)
             {
                 arrow = ShootArrow(direction, worldPosition);
+                lastShotTime = Time.time;
+                isAiming = true;
+                aimEndTime = Time.time + (aimInterval);
             }
         }
     }
 
+    void AimAtCursor()
+    {
+        Vector3 direction = (worldPosition - Character.transform.position).normalized;
+        direction.y = 0; // Mantém a rotação apenas no plano horizontal
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        Character.transform.rotation = Quaternion.Slerp(Character.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+    }
+
     public GameObject ShootArrow(Vector3 direction, Vector3 targetPosition)
     {
-        //Cria a flecha e inicia anima��o
-
         GameObject arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
         animator.SetTrigger("t_shoot");
-
-        //Ajusta a dire��o da flecha
 
         arrow.transform.LookAt(targetPosition);
         arrow.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
 
-
-        //D� impulso a flecha
-
         Rigidbody arrowRB = arrow.GetComponent<Rigidbody>();
         arrowRB.AddForce(direction * ArrowSpeed, ForceMode.VelocityChange);
-        lastShotTime = Time.time;
+
         return arrow;
     }
 }

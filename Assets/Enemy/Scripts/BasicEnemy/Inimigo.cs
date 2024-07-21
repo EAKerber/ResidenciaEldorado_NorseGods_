@@ -18,16 +18,18 @@ public class Inimigo : MonoBehaviour
     void SpawnEnemy()
     {
 
-        //Checa se o numero de inimigos spawnados ou mortos é igual a 20
-        if(scoreManager.instance.checkEnemyCount()){
+        //Checa se o numero de inimigos vivos é igual a zero
+        if(scoreManager.instance.isAllEnemiesKilled()){
             CancelInvoke();
             SpawnBoss();
             return;
         }
 
-        if(!scoreManager.instance.checkEnemyMaxCount()){
+        //checando se o numero de imigos spawnado é menor que o maximo
+        if(!scoreManager.instance.isMaxEnemiesSpawned()){
+            
             //Adiciona 1 ao numero de inimigos criados
-            scoreManager.instance.setCurrentEnemyCount();
+            scoreManager.instance.setEnemiesSpawnedCount();
 
             // Instancia um inimigo no ponto de spawn com a posi  o e rota  o padr o
             Instantiate(l_Inimigo, transform.position, Quaternion.identity);

@@ -5,17 +5,15 @@ using UnityEngine;
 public class TriggerDamage : MonoBehaviour
 {
    public Vida vida;
+
+    [SerializeField] private int danoBase = 5;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             vida = collision.gameObject.GetComponent<Vida>();
-            vida.dano(5);
+            vida.dano(danoBase);
         }
     }
-
-
-
-
-    
 }

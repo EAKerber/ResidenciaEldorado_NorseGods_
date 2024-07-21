@@ -7,6 +7,7 @@ public class ArrowDestroy : MonoBehaviour
     public GameObject arrow; 
     public float duration = 5.0f;
     public int EnemyLayer;
+    [SerializeField] public int baseDamage = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -14,12 +15,6 @@ public class ArrowDestroy : MonoBehaviour
         arrow = GetComponent<ArrowDestroy>().gameObject;
         DestroyArrow(arrow, duration);
         EnemyLayer = LayerMask.NameToLayer("Enemy");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void DestroyArrow(GameObject arrow, float duration)
@@ -31,7 +26,7 @@ public class ArrowDestroy : MonoBehaviour
     {
         if(collision.gameObject.layer == EnemyLayer)
         {
-            collision.gameObject.GetComponent<Vida>().dano(5);
+            collision.gameObject.GetComponent<Vida>().dano(baseDamage);
         }
         Destroy(arrow);
     }
