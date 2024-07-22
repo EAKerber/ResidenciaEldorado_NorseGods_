@@ -11,12 +11,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     private PlayerInputActions inputActions;
+    private Transform mycamera;
 
     // Start is called before the first frame update
     void Start()
     {
         inputActions = new PlayerInputActions();
         inputActions.Enable();
+        mycamera = Camera.main.transform;
     }
 
     // Update is called once per frame
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour
         {
             // Ele está andando
             Vector3 moveDirection = new(direction.x, 0, direction.y);
+            moveDirection = mycamera.TransformDirection(moveDirection);
+            moveDirection.y = 0;
             float moveDistance = speed * Time.deltaTime;
 
             // Rotaciona o personagem para a direção que está andando
