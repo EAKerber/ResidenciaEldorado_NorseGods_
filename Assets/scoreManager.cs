@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class scoreManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class scoreManager : MonoBehaviour
     
     public Text enemyCountText;
 
-    [SerializeField] private int roundMaxEnemyCount = 20;
+    private int roundMaxEnemyCount = 3;
     private int enemyCount = 0;
     private int enemiesSpawned = 0;
     private int enemiesKilled = 0;
@@ -17,7 +18,17 @@ public class scoreManager : MonoBehaviour
     bool bossSpawned = false;
 
     private void Awake() {
-        instance = this;
+        // Verifica se já existe uma instância do ScoreManager
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // Se já houver uma instância, destrua esta nova
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -68,6 +79,12 @@ public class scoreManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void setBossText(){
+        if(bossSpawned){
+            enemyCountText.text = "Derrote o Chefão!!!";
+        }
     }
 
 }

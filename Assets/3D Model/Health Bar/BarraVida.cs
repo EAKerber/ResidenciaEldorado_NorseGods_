@@ -9,6 +9,7 @@ public class BarraVida : MonoBehaviour
     [SerializeField] Vida vida;
     [SerializeField] private Image barraVidaImage;
     [SerializeField] private bool isStatic = false; 
+    //[SerializeField] private GameObject wanted;
     private bool isFirstTime = true;
 
     private float lastTimeShown;

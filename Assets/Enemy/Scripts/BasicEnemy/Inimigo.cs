@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Inimigo : MonoBehaviour
 {
 
     public GameObject l_Inimigo; // Refer ncia ao prefab do inimigo
-    public GameObject b_Inimigo; // Referencia ao prefab do boss
     public Transform spawnPoint;   // Refer ncia ao ponto de spawn
+    [SerializeField] public float tempoDeSpawn = 10f;
+    [SerializeField] public float loadSceneDelay = 10f;
+    [SerializeField] private string bossLevel;
+
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnEnemy", 0f, 5f); // Spawna um inimigo a cada 2 segundos (ajuste conforme necess rio)
+        InvokeRepeating("SpawnEnemy", 0f, tempoDeSpawn); // Spawna um inimigo a cada 2 segundos (ajuste conforme necess rio)
     }
 
 
@@ -21,7 +25,7 @@ public class Inimigo : MonoBehaviour
         //Checa se o numero de inimigos vivos é igual a zero
         if(scoreManager.instance.isAllEnemiesKilled()){
             CancelInvoke();
-            SpawnBoss();
+            GoToBossRoom();
             return;
         }
 
@@ -38,11 +42,29 @@ public class Inimigo : MonoBehaviour
     }
 
     //Controla se um boss já foi spawnado e spawna um se não
-    void SpawnBoss(){
+    void GoToBossRoom(){
         if(!scoreManager.instance.wasBossSpawned()){
             scoreManager.instance.setBossSpawned();
-            Instantiate(b_Inimigo, transform.position, Quaternion.identity);
+
+            // Inicia a corrotina para carregar a cena após o atraso
+            StartCoroutine(LoadSceneAfterDelay(loadSceneDelay, bossLevel));
         }   
+    }
+
+    private IEnumerator LoadSceneAfterDelay(float delay, string scene)
+    {
+        // Espera pelo tempo especificado
+        yield return new WaitForSecondsRealtime(delay);
+
+        //Volta o tempo do jogo ao normal
+        Time.timeScale = 1f;
+
+        //muda o texto para o encontro com o boss
+
+        scoreManager.instance.setBossText();
+
+        // Carrega a cena
+        SceneManager.LoadScene(scene);
     }
 
 }

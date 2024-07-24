@@ -25,8 +25,18 @@ public class Shoot : MonoBehaviour
     private bool isAiming = false;
     private float aimEndTime;
 
+    [SerializeField] public string playerLayerName = "Player";
+    public LayerMask layerToIgnore;
+
+    public float maxDistance = 100f;
+
     void Start()
     {
+        // Converter o nome da layer para seu valor correspondente
+        int playerLayer = LayerMask.NameToLayer(playerLayerName);
+        // Configurar a máscara para ignorar a layer do player
+        layerToIgnore = 1 << playerLayer;
+        
         ArrowSpeed = 75.0f;
         timeBetweenShots = 0.3f;
         aimInterval = 2.5f;
@@ -45,7 +55,7 @@ public class Shoot : MonoBehaviour
         RaycastHit distance;
         GameObject arrow;
 
-        if (Physics.Raycast(target, out distance))
+        if (Physics.Raycast(target, out distance, maxDistance, ~layerToIgnore))
         {
             canShoot = true;
             worldPosition = distance.point;
