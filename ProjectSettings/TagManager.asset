@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: LayerDerrota
+    uniqueID: 1821076249
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

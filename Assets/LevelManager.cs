@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     
 
     [SerializeField] private string mainMenu;
-    [SerializeField] private Text textoDeDerrota;
+    [SerializeField] private Canvas canvasDeDerrota;
     [SerializeField] private float loadSceneDelay = 5f;
 
     private void Awake() {
@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 0f;
 
         //Torna visivel o texto de derrota
-        textoDeDerrota.gameObject.SetActive(true);
+        canvasDeDerrota.gameObject.SetActive(true);
 
         // Inicia a corrotina para carregar a cena após o atraso
         StartCoroutine(LoadSceneAfterDelay(loadSceneDelay, mainMenu));

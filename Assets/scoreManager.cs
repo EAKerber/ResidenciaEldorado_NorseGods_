@@ -10,7 +10,7 @@ public class scoreManager : MonoBehaviour
     
     public Text enemyCountText;
 
-    private int roundMaxEnemyCount = 3;
+    private int roundMaxEnemyCount = 20;
     private int enemyCount = 0;
     private int enemiesSpawned = 0;
     private int enemiesKilled = 0;
