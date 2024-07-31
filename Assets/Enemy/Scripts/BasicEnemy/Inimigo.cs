@@ -19,16 +19,18 @@ public class Inimigo : MonoBehaviour
     }
 
 
-    void SpawnEnemy()
-    {
+    public void Update(){
 
-        //Checa se o numero de inimigos vivos é igual a zero
+        //Checa se o numero de inimigos vivos é igual a zero, cancela o invoke e vai para sala do boss
         if(scoreManager.instance.isAllEnemiesKilled()){
             CancelInvoke();
             GoToBossRoom();
             return;
         }
-
+    }
+    
+    void SpawnEnemy()
+    {
         //checando se o numero de imigos spawnado é menor que o maximo
         if(!scoreManager.instance.isMaxEnemiesSpawned()){
             

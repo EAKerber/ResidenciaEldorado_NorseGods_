@@ -71,7 +71,7 @@ public class Shoot : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && Time.time >= lastShotTime + timeBetweenShots)
+        if (Input.GetButtonDown("Fire1") && Time.time >= lastShotTime + timeBetweenShots && Time.timeScale != 0)
         {
             if (canShoot)
             {

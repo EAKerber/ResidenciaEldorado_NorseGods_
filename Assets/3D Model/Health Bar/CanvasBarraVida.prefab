@@ -238,7 +238,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1958040863085015706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,4 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: {fileID: 0}
   barraVidaImage: {fileID: 1958040862654827536}
+  barraVidaImageAmarelo: {fileID: 0}
+  barraVidaImageVerde: {fileID: 0}
   isStatic: 0
+  canChangeColor: 0

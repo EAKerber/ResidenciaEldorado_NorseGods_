@@ -6,7 +6,7 @@ public class TriggerDamage : MonoBehaviour
 {
     public Vida vida;
     [SerializeField] private int danoBase = 5;
-    [SerializeField] private float attackCooldown = 1f; // Tempo de cooldown entre danos
+    [SerializeField] private float attackCooldown = 1.5f; // Tempo de cooldown entre danos
     private bool canApplyDamage = true;
 
     private Animator animator;
@@ -18,7 +18,7 @@ public class TriggerDamage : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (canApplyDamage && collision.gameObject.tag == "Player")
         {

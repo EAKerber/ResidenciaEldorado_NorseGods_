@@ -8,8 +8,14 @@ public class BarraVida : MonoBehaviour
 {
     [SerializeField] Vida vida;
     [SerializeField] private Image barraVidaImage;
+    [SerializeField] private Sprite barraVidaImageAmarelo;
+    [SerializeField] private Sprite barraVidaImageVerde;
+
+    private Sprite spriteVermelhoOriginal;
+
     [SerializeField] private bool isStatic = false; 
-    //[SerializeField] private GameObject wanted;
+    [SerializeField] private bool canChangeColor = false; 
+
     private bool isFirstTime = true;
 
     private float lastTimeShown;
@@ -18,6 +24,7 @@ public class BarraVida : MonoBehaviour
     void Start(){
         cooldown = 1.5f;
         lastTimeShown = Time.time;
+        spriteVermelhoOriginal = barraVidaImage.sprite;
     }
 
     // Update is called once per frame
@@ -33,20 +40,34 @@ public class BarraVida : MonoBehaviour
 
     public void AlterarBarraVida()
     {
-        /*if(isFirstTime && !isStatic){
-            gameObject.SetActive(false);
-            isFirstTime = false;
-        }else{
-            gameObject.SetActive(true);
-        }*/
-
         gameObject.SetActive(true);
         lastTimeShown = Time.time;
-        barraVidaImage.fillAmount = ((float)vida.VidaAtual / (float)vida.VidaTotal);
+        float fillAmount = ((float)vida.VidaAtual / (float)vida.VidaTotal);
+        barraVidaImage.fillAmount = fillAmount;
+        if(canChangeColor){
+            AtualizarCorDaBarra(fillAmount);
+        }
+    }
+
+    private void AtualizarCorDaBarra(float fillAmount)
+    {
+        if (fillAmount > 0.8f)
+        {
+            barraVidaImage.sprite = barraVidaImageVerde;
+        }
+        else if (fillAmount > 0.4f)
+        {
+            barraVidaImage.sprite = barraVidaImageAmarelo;
+        }
+        else
+        {
+            barraVidaImage.sprite = spriteVermelhoOriginal;
+        }
+
+        barraVidaImage.type = Image.Type.Filled;
     }
 
     public void FadeDelay(float delay){
-        //Debug.Log((Time.time - lastTimeShown));
         if((Time.time - lastTimeShown) >= delay){
             gameObject.SetActive(false);
         }

@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: {fileID: 0}
   danoBase: 5
+  attackCooldown: 1.5
 --- !u!54 &4331622141449110798
 Rigidbody:
   m_ObjectHideFlags: 0

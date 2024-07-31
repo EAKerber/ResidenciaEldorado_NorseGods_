@@ -197,6 +197,18 @@ PrefabInstance:
       propertyPath: isStatic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1958040863085015782, guid: 0f1bcc3f20a0e1547ba3954e1d5fe85b,
+        type: 3}
+      propertyPath: barraVidaImageVerde
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d8bf4a1ec61ec541af2309fd632ab3f,
+        type: 3}
+    - target: {fileID: 1958040863085015782, guid: 0f1bcc3f20a0e1547ba3954e1d5fe85b,
+        type: 3}
+      propertyPath: barraVidaImageAmarelo
+      value: 
+      objectReference: {fileID: 21300000, guid: 6eadeee5a117f8c4c80eb9423058aede,
+        type: 3}
     - target: {fileID: 1958040863085015783, guid: 0f1bcc3f20a0e1547ba3954e1d5fe85b,
         type: 3}
       propertyPath: m_Pivot.x
